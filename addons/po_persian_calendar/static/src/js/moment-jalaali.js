@@ -517,18 +517,18 @@
         Languages
     ************************************/
     extend(getPrototypeOf(moment.localeData()),
-      { _jMonths: [ 'Farvardin'
-                  , 'Ordibehesht'
-                  , 'Khordaad'
-                  , 'Tir'
-                  , 'Amordaad'
-                  , 'Shahrivar'
-                  , 'Mehr'
-                  , 'Aabaan'
-                  , 'Aazar'
-                  , 'Dey'
-                  , 'Bahman'
-                  , 'Esfand'
+      { _jMonths: [ 'فروردین'
+                  , 'اردیبهشت'
+                  , 'خرداد'
+                  , 'تیر'
+                  , 'مرداد'
+                  , 'شهریور'
+                  , 'مهر'
+                  , 'آبان'
+                  , 'آذر'
+                  , 'دی'
+                  , 'بهمن'
+                  , 'اسفند'
                   ]
       , jMonths: function (m) {
           return this._jMonths[m.jMonth()]
@@ -1090,7 +1090,10 @@
     jMoment.fn.isSame = function (other, units) {
       var _units = normalizeUnits(units)
       if (_units === 'jyear' || _units === 'jmonth') {
-        return moment.fn.isSame.call(this.startOf(units), other.startOf(units))
+        /// parOdoo fixuo
+        /// we should use clone() otherwise
+        /// startOf will alter 'this'
+        return moment.fn.isSame.call(this.clone().startOf(_units), other.clone().startOf(_units))
       }
       return moment.fn.isSame.call(this, other, units)
     }
@@ -1290,3 +1293,5 @@
 
     //console.log(moment.localeData('fa'));
     console.log( moment().format("jYYYY/jM/jD"))
+    debugger;
+    var mmm = moment().month();

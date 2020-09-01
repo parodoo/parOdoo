@@ -129,7 +129,68 @@ Then the client side can retreive the selected calendar:
     var calendar = odoo.session_info.user_context.calendar
 ```
 ## TempusDominus.js
-[Tempus Dominus Bootstrap 4](https://github.com/tempusdominus/bootstrap-4) (for gods sake! what's that name!!!) is a datepiker component for Boostrap. Odoo uses this control as it's datepicker widget. Tempus uses `jQuery` and `moment.js` in its core and just like `moment` does not include any national calendar in it's design. Theredore touches here and there is required for user calendar support. These include rendering functions that displays the datepikcer and also parsing methods that return the selected day. But first of all we need to add sort of congiutaion option, so that the user can specify the `calendar` to be used. 
+[Tempus Dominus Bootstrap 4](https://github.com/tempusdominus/bootstrap-4) (for gods sake! what's that name!!!) is a datepiker component for Boostrap. Odoo uses this control as it's datepicker widget. Tempus uses `jQuery` and `moment.js` in its core and just like `moment` does not include any national calendar in it's design. Theredore touches here and there is required for user calendar support. These include rendering functions that displays the datepikcer and also parsing methods that return the selected day. But first of all we need to add sort of congiutaion option, so that the user can specify the `calendar` to be used, this is done in `getCalendar`:
+```js
+/**
+         * parOdoo fixup: 
+         * Returns the calendar to be used. This is a single character such as
+         * '' or 'g' for Gregorian. 'j' for Persian (jalali) etc...
+         * 
+         * 
+         */
+        TempusDominusBootstrap4.prototype.getCalendar = function(){
 
+            /// Within odoo environment we may use user_context.getCalendar
+            var user_context = ((typeof odoo=='undefined'?{}:odoo).session_info ||{}).user_context;
+            if (user_context && typeof user_context.getCalendar==='function')
+            {
+                return user_context.getCalendar();
+            }
+            // Otherwise if 'calendar' is present on 'options' return it
+            // if not, return jalali calendar if locale is fa.
+            return (this._options || {}).calendar || (moment.locale()=='fa'?'j':'');
+        }
+```
+Then there are `_fill...` methods such as `_fillDate` which are the actual rendering methods that fill control with appropriate elements, for instance this is where day numbers is written on the datepicker control:
+```js
+                // parOdoo fixup:
+                // Replacing follwoing line for calendar support:
+                //row.append('<td data-action="selectDay" data-day="' + currentDate.format('L') +
+                //  '"    class="day' + clsName + '">' + currentDate.date() + '</td>');
+                var _d = this.getCalendar()+"D";
+                // Note that formatting with 'jD' will result in days in Persian Calendar.
+                // also we added the data-date attribute which become handy in click events
+                // where we need to calculate the selected date. see _doAction.
+                row.append('<td data-action="selectDay" data-day="' + 
+                    currentDate.format('L') +'" data-date="'+currentDate.format("YYYY-MM-DD") +'" class="day' + clsName + '">' + currentDate.format(_d) + '</td>');
+                currentDate.add(1, 'd');
+
+```
+Then id is this `doAction` method that performs various actions upon user actions, such as `select month`,`select date`, .... This method is fixed to do the right action, e.g. select correct date, according to the selected caledar, for instance when user clicks on a month:
+```js
+                case 'selectMonth':
+                    {
+
+                        var month = $(e.target).closest('tbody').find('span').index($(e.target));
+                        /// parOdoo fixup
+                        /// if calendar is jalali use jMonth
+                        if (this.getCalendar()=='j' && typeof this._viewDate.jMonth=='function')
+                        {
+                            this._viewDate.jMonth(month);
+                        }
+                        else
+                        {
+                            this._viewDate.month(month);
+                        }
+
+```
+
+This is the list of modifications in TempusDominus for details please refer to `tempusdominys_fixed.js` file:
+* getCalendar() : Added to get the user prefered calendar.
+* _doAction() : Modified to correctly perform user actions according to prefered calendar.
+* _fillMonth(): Modified to fill month based on calendar.
+* _updateMonths(): Modified to show the active month based on calendar.
+* _updateYears() : To show correct years based on calendar.
+* _fillDate() : To show correct view of days in month based on calendar.
 
 
