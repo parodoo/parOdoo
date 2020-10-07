@@ -20,19 +20,8 @@
     'depends': ['web'
     ],
     'data': [
-        # 'data/account_payment_method_data.xml',
-        # 'data/ir_actions_server_data.xml',
-        # 'wizard/account_check_action_wizard_view.xml',
-        # 'wizard/print_pre_numbered_checks_view.xml',
-        # 'wizard/res_config_settings_view.xml',
         'views/templates.xml',
-        # 'views/account_check_view.xml',
-        # 'views/account_journal_dashboard_view.xml',
-        # 'views/account_journal_view.xml',
-        # 'views/account_checkbook_view.xml',
-        # 'views/account_chart_template_view.xml',
-        # 'security/ir.model.access.csv',
-        # 'security/account_check_security.xml',
+        'views/UserPreferences_Views.xml',
     ],
     'demo': [
     ],
