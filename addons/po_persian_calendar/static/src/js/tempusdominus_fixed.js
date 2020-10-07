@@ -2602,12 +2602,15 @@ var TempusDominusBootstrap4 = function ($) {
          * 
          */
         TempusDominusBootstrap4.prototype.getCalendar = function(){
-
             /// Within odoo environment we may use user_context.getCalendar
             var user_context = ((typeof odoo=='undefined'?{}:odoo).session_info ||{}).user_context;
             if (user_context && typeof user_context.getCalendar==='function')
             {
                 return user_context.getCalendar();
+            }
+            /// If calendar is set on user_context
+            if (user_context && typeof user_context.calendar=='string'){
+                return user_context.calendar.startsWith('j')?'j':'';
             }
             // Otherwise if 'calendar' is present on 'options' return it
             // if not, return jalali calendar if locale is fa.
