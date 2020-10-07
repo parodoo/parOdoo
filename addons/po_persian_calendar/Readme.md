@@ -102,7 +102,7 @@ Also at the end of 'makeMoment' function, the date is checked against a max valu
 ```
 
 ## HttpExtensions
-The prefered calendar should be considerd as a user preference , that is the user should be able to select her prefered calendar as one of her prefernces. We will use the recommended method (see (Odoo JavaScript Session)[https://www.odoo.com/documentation/13.0/reference/javascript_reference.html#session]) of transering this sort of settings to the client side using the 'user_context':
+The prefered calendar should be considerd as a user preference , that is the user should be able to select her prefered calendar as one of her prefernces. We will use the Odoo recommended method (see [Odoo JavaScript Session](https://www.odoo.com/documentation/13.0/reference/javascript_reference.html#session) of transfering this sort of settings to the client side using the 'user_context':
 
 ```py
 class HttpExtensions(Http):
@@ -185,7 +185,7 @@ Then id is this `doAction` method that performs various actions upon user action
 
 ```
 
-This is the list of modifications in TempusDominus for details please refer to `tempusdominys_fixed.js` file:
+This is the list of modifications in TempusDominus: (see `tempusdominys_fixed.js` for details)
 * getCalendar() : Added to get the user prefered calendar.
 * _doAction() : Modified to correctly perform user actions according to prefered calendar.
 * _fillMonth(): Modified to fill month based on calendar.

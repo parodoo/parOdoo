@@ -1289,9 +1289,3 @@
       this["moment"] = require("moment-jalaali");
     }
     })();
-    //moment.locale("fa");
-
-    //console.log(moment.localeData('fa'));
-    console.log( moment().format("jYYYY/jM/jD"))
-    debugger;
-    var mmm = moment().month();

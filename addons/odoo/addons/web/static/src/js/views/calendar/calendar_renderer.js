@@ -543,6 +543,7 @@ return AbstractRenderer.extend({
      * @returns {Promise}
      */
     _render: function () {
+        
         var $calendar = this.$calendar;
         var $fc_view = $calendar.find('.fc-view');
         var scrollPosition = $fc_view.scrollLeft();
