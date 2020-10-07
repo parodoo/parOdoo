@@ -23,27 +23,15 @@ odoo.define('web.mytime', function (require) {
                 :core._t.database.parameters.code == 'fa_IR' ?
                     'j' :
                     '';
-
-
-        if (user_context && typeof user_context.calendar === 'string') {
-            return user_context.calendar.startsWith('j')?'j':'';
-        }
-        return user_context && user_context.lang=='fa_IR'?'j':'';
-
-        if (typeof user_context.calendar ==='string'){
-            return user_context.calendar;
-        }
-
-        if (user_context && typeof user_context.lang === 'string') {
-            //debugger;
-            console.warn("user_context:" + user_context.lang);
-            return user_context.lang=='fa_IR'?'j':'';
-        }
-
-        return core._t.database.parameters.code == 'fa_IR' || 1 == 1 ?
-            'j' :
-            ''
     }
+    time.getUserDateFormat = function (user_context) {
+        user_context = user_context ||
+        ( ((typeof odoo == 'undefined' ? {} : odoo).session_info || {}).user_context );
+        return user_context && typeof user_context.date_format === 'string'
+            ? user_context.date_format
+            :'';
+    }
+
     time.fixPersianLocale = function () {
 
         //debugger;
@@ -64,7 +52,12 @@ odoo.define('web.mytime', function (require) {
     time.getLangDateFormat = function () {
         time.fixPersianLocale();
         if (time.getCalendar()=='j'){
-            return "jYYYY/jM/jD"
+            switch(time.getUserDateFormat()){
+                case 'YYYY/M/D':
+                    return "jYYYY/jM/jD";
+                default:
+                    return "jYYYY/jMM/jDD";
+            }
         }
         return time._getLangDateFormat()
     }
@@ -72,10 +65,14 @@ odoo.define('web.mytime', function (require) {
     time.getLangDatetimeFormat = function () {
         time.fixPersianLocale();
         if (time.getCalendar()=='j'){
-            return "jYYYY/jM/jD HH:mm:ss"
+            switch(time.getUserDateFormat()){
+                case 'YYYY/M/D':
+                    return "jYYYY/jM/jD HH:mm:ss";
+                default:
+                    return "jYYYY/jMM/jDD HH:mm:ss";
+            }
         }
-        
-        return time._getLangDateFormat()
+        return time._getLangDatetimeFormat()
     }
 
 });
@@ -86,8 +83,17 @@ if (typeof odoo!='undefined' && odoo.session_info && odoo.session_info.user_cont
         var user_context = ((typeof odoo == 'undefined' ? {} : odoo).session_info || {}).user_context;
         return time.getCalendar(user_context);
     }
+    odoo.session_info.user_context.getUserDateFormat == function(){
+        var user_context = ((typeof odoo == 'undefined' ? {} : odoo).session_info || {}).user_context;
+        return time.getUserDateFormat(user_context);
+    }
     odoo.getCalendar = function(){
         var user_context = ((typeof odoo == 'undefined' ? {} : odoo).session_info || {}).user_context;
         return time.getCalendar(user_context);
     }
+    odoo.getUserDateFormat = function(){
+        var user_context = ((typeof odoo == 'undefined' ? {} : odoo).session_info || {}).user_context;
+        return time.getUserDateFormat(user_context);
+    }
+
 }

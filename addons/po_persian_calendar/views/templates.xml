@@ -16,5 +16,10 @@
             </xpath>
             
         </template>
+        <template id="qunit_suite" name="po_persian_calendar_tests" inherit_id="web.qunit_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/po_persian_calendar/static/tests/PersianCalendar_Tests.js"></script>
+        </xpath>
+    </template>
     </data>
 </odoo>
