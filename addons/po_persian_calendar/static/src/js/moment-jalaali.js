@@ -1193,8 +1193,9 @@
           , y: '1 سال'
           , yy: '%d سال'
           }
+        /*
         , preparse: function (string) {
-            if (usePersianDigits) {
+            if (true) {
               return string.replace(/[۰-۹]/g, function (match) {
                 return numberMap[match]
               }).replace(/،/g, ',')
@@ -1202,13 +1203,14 @@
             return string
         }
         , postformat: function (string) {
-            if (usePersianDigits && false) {
+            if (true) {
               return string.replace(/\d/g, function (match) {
                 return symbolMap[match]
               }).replace(/,/g, '،')
             }
             return string
         }
+        */
         , ordinal: '%dم'
         , week:
           { dow: 6 // Saturday is the first day of the week.

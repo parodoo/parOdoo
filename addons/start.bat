@@ -1,1 +1,1 @@
-"C:\Program Files (x86)\Odoo 13.0\python\python" "C:\Program Files (x86)\Odoo 13.0\server\odoo-bin"
+"C:\Program Files (x86)\Odoo 13.0\python\python" "C:\Program Files\Odoo 14.0.20201215\server\odoo-bin" --logfile *

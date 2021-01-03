@@ -1,6 +1,10 @@
 Release Note:
 ============
 This package is still under development and cannot be used.
+## Odoo 14 Installation
+Override 'fa.js' in \server\odoo\addons\web\static\lib\moment\locale.
+See [here](https://github.com/parodoo/parOdoo/issues/5) for details.
+
 
 Persian Calendar
 ================
