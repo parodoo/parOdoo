@@ -14,6 +14,7 @@ odoo.define('web.mytime', function (require) {
      * @param {*} user_context 
      */
     time.getCalendar = function (user_context) {
+        //return 'j';
         user_context = user_context ||
         ( ((typeof odoo == 'undefined' ? {} : odoo).session_info || {}).user_context );
         return user_context && typeof user_context.calendar === 'string'
