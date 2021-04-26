@@ -905,6 +905,12 @@
     jMoment.fn = objectCreate(moment.fn)
     
     jMoment.utc = function (input, format, lang, strict) {
+
+      if (moment.isMoment(input)){
+
+        return moment.utc(input);
+      }
+
       return makeMoment(input, format, lang, strict, true)
     }
     
