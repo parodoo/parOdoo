@@ -908,7 +908,7 @@
 
       if (moment.isMoment(input)){
 
-        return moment.utc(input);
+        return makeMoment(moment.utc(input), null, lang, strict, true);
       }
 
       return makeMoment(input, format, lang, strict, true)
