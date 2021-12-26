@@ -133,7 +133,7 @@ Then the client side can retreive the selected calendar:
     var calendar = odoo.session_info.user_context.calendar
 ```
 ## TempusDominus.js
-[Tempus Dominus Bootstrap 4](https://github.com/tempusdominus/bootstrap-4) (for gods sake! what's that name!!!) is a datepiker component for Boostrap. Odoo uses this control as it's datepicker widget. Tempus uses `jQuery` and `moment.js` in its core and just like `moment` does not include any national calendar in it's design. Theredore touches here and there is required for user calendar support. These include rendering functions that displays the datepikcer and also parsing methods that return the selected day. But first of all we need to add sort of congiutaion option, so that the user can specify the `calendar` to be used, this is done in `getCalendar`:
+[Tempus Dominus Bootstrap 4](https://github.com/tempusdominus/bootstrap-4) (for gods sake! what's that name!!!) is a datepicker component for Boostrap. Odoo uses this control as it's datepicker widget. Tempus uses `jQuery` and `moment.js` in its core and just like `moment` does not include any national calendar in it's design. Therefore touches here and there is required for user calendar support. These include rendering functions that displays the datepicker and also parsing methods that return the selected day. But first of all we need to add sort of congiutaion option, so that the user can specify the `calendar` to be used, this is done in `getCalendar`:
 ```js
 /**
          * parOdoo fixup: 
